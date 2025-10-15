@@ -22,42 +22,53 @@ STEP-5: Read the characters row wise or column wise in the former order to get t
 
 # PROGRAM:
 ~~~
- #include <stdio.h>
- #include <string.h>
- #include <ctype.h>
- void encryptRailFence(char *message, int rails) {
- int len = strlen(message);
- char rail[rails][len];
- memset(rail, '\n', sizeof(rail));
- int row = 0, direction = 1;
- for (int i = 0; i < len; i++) {
- rail[row][i] = message[i];
- row += direction;
- if (row == rails- 1 | row == 0)
- direction =-direction;
- }
- printf("Encrypted text: ");
- for (int i = 0; i < rails; i++)
- for (int j = 0; j < len; j++)
- if (rail[i][j] != '\n')
- printf("%c", rail[i][j]);
- printf("\n");
- }
- int main() {
- char message[100];
- int rails;
- printf("Enter a Secret Message: ");
- scanf("%s", message);
- printf("Enter number of rails: ");
- scanf("%d", &rails);
- encryptRailFence(message, rails);
- return 0;
- }
+#include <stdio.h>
+#include <string.h>
+
+void railFenceEncrypt(char text[], int key) 
+{
+    int len = strlen(text);
+    char rail[key][len];
+    
+    for(int i=0;i<key;i++)
+        for(int j=0;j<len;j++)
+            rail[i][j] = '\n';
+    
+    int row = 0, dir = 0;
+    for(int i=0;i<len;i++) {
+        rail[row][i] = text[i];
+        if(row==0) dir = 1;
+        else if(row==key-1) dir = 0;
+        row += dir ? 1 : -1;
+    }
+    
+    printf("Cipher Text: ");
+    for(int i=0;i<key;i++)
+        for(int j=0;j<len;j++)
+            if(rail[i][j] != '\n')
+                printf("%c", rail[i][j]);
+}
+
+int main() 
+{
+    char text[100];
+    int key;
+    
+    printf("Enter plain text: ");
+    scanf("%s", text);
+    printf("Enter key (number of rails): ");
+    scanf("%d", &key);
+    
+    railFenceEncrypt(text, key);
+    
+    return 0;
+}
 ~~~
 
 # OUTPUT:
-<img width="1320" height="723" alt="image" src="https://github.com/user-attachments/assets/49547c24-3dd0-49ae-98cb-b3dc519f4069" />
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/1be5f8fc-9b7e-4808-a1b2-f04863dade66" />
 
+<img width="1661" height="1189" alt="image" src="https://github.com/user-attachments/assets/160b0a0f-52fb-4bd0-b7d2-f616791a6e9d" />
 
 
 # RESULT:
